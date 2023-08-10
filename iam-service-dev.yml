@@ -38,7 +38,7 @@ spring:
 
   cloud:
     discovery:
-      enabled: false
+      enabled: true
 
 
 keycloak:
