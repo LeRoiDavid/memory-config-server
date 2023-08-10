@@ -1,0 +1,75 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3309/iam_db
+    username: root
+    password: root
+  # Actions for the schema when building the project
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+  ###> Database Configurations <###
+  security:
+    oauth2:
+
+      client:
+        registration:
+          oauth2-client-credentials:
+              client-id: iam-service
+              client-secret: 1uivyZNKgI8sMmTPM1P6TdlJmBTm2MxW # RZrFZYGtE6pdZaPC7iVliazyv24yQZRP
+              scope: openid, roles, profile, email, offline_access
+              authorization-grant-type: password
+              provider: keycloak
+
+        provider:
+          keycloak:
+            issuer-uri: ${keycloak.auth-server-url}/realms/${keycloak.realm}
+            jwk-set-uri: ${keycloak.auth-server-url}/realms/${keycloak.realm}/protocol/openid-connect/certs
+            token-uri: ${keycloak.auth-server-url}/realms/${keycloak.realm}/protocol/openid-connect/token
+            user-info-uri: ${keycloak.auth-server-url}/realms/${keycloak.realm}/protocol/openid-connect/userinfo
+     # resource:
+     #   jwt:
+     #     key-value: -----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA4DpshuA/BtVsnq9AW8pT/LydVg3O1vrqyP08N0nOQDEBGz5SCo77fuAVtcm/GX4p9xLhqpSk05Gfrzq2+MknVdVAiN/vtW/tovUYSZRUsMjpltS3HHVCfuPL8jbkuGJLm7DJARZWpZl5mzmAAmO+io60RWA1a940vEFs0sBNOuWqHb4neHToqX+C5UyjBAa25Valkp8VKIg4huOYvpP+qGq7xXy2BdV+LnnBTmm97P20P2FPjjeUmOqS6+3PGeiMsfYljKCG12MIbHCl1qFm6lVvUbTiFtVK1JmnKXIabMJAzTnG+NZ3rL6FCsCQc9aCmQABex6yIVwicvDJmOkl3QIDAQAB\n-----END PUBLIC KEY-----
+      resource-server:
+        jwt:
+         # public-key-location:
+          issuer-uri: ${keycloak.auth-server-url}/realms/${keycloak.realm}
+          jwk-set-uri: ${keycloak.auth-server-url}/realms/${keycloak.realm}/protocol/openid-connect/certs
+
+  cloud:
+    discovery:
+      enabled: false
+
+
+keycloak:
+  auth-server-url: ${KEYCLOAK_URL:http://localhost:9999} # Keycloak server url
+  realm: memory # Keycloak Realm
+
+
+
+###> Eureka config <###
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+
+    service-url:
+      defaultZone: http://eureka:eureka@localhost:8761/eureka
+###> Eureka config <###
+
+###> Actuator <###
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+###> Actuator <###
+
+###> Log config <###
+logging.level:
+  org.springframework.cloud.gateway: DEBUG
+  org.springframework.security: DEBUG
+  org.springframework.web.reactive.function.client: TRACE
+
+
