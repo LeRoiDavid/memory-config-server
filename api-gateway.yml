@@ -91,13 +91,6 @@ spring:
         filters:
          - RewritePath=/api/iam-service/(?<remaining>.*), /api/iam-service/$\{remaining}
 
-      - id: keycloak
-        uri: http://keycloak:9999
-        predicates:
-          - Path=/api/iam-service/**
-        filters:
-         - RewritePath=/api/iam-service/(?<remaining>.*), /api/iam-service/$\{remaining}
-
     discovery:
       enabled: true
 ### Spring docs OpenIA
@@ -122,7 +115,7 @@ springdoc:
 
 openapi:
   service:
-    title: ${spring.application.name} #title that you will want to display in the swagger ui
+    title: API-GATEWAY #title that you will want to display in the swagger ui
     version: 1.0.0
     url: http://localhost:${server.port} #api gateway url
 
@@ -136,7 +129,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://eureka:eureka@${app.eureka-server}:8761/eureka
+      defaultZone: http://eureka:eureka@$localhost:8761/eureka
 
 management:
   endpoints:
