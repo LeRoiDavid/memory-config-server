@@ -24,4 +24,5 @@ eureka:
     serverUrl: ${EUREKA_SERVER_ADDRESS}
 
   username: ${EUREKA_USERNAME:eureka}
+  
   password: ${EUREKA_PASSWORD:eureka}
