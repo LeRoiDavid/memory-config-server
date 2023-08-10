@@ -1,0 +1,150 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+spring:
+  application:
+    name: api-gateway
+  security:
+    oauth2:
+      resource-server:
+        jwt:
+          issuer-uri: http://keycloak:9999/realms/memory
+#  cloud:
+#    security:
+#      oauth2:
+#        client:
+#          provider:
+#            keycloak:
+#              token-uri: http://localhost:9999/auth/realms/master/protocol/openid-connect/token
+#              authorization-uri: http://localhost:8080/auth/realms/master/protocol/openid-connect/auth
+#              userinfo-uri: http://localhost:8080/auth/realms/master/protocol/openid-connect/userinfo
+#              user-name-attribute: preferred_username
+#          registration:
+#            keycloak-with-test-scope:
+#              provider: keycloak
+#              client-id: exam-admin
+#              client-secret: c6480137-1526-4c3e-aed3-295aabcb7609
+#              authorization-grant-type: authorization_code
+#              redirect-uri: "{baseUrl}/login/oauth2/code/keycloak"
+
+            #keycloak-without-test-scope:
+            # provider: keycloak
+            #  client-id: spring-without-test-scope
+            #  client-secret: f6fc369d-49ce-4132-8282-5b5d413eba23
+            #  authorization-grant-type: authorization_code
+            #  redirect-uri: "{baseUrl}/login/oauth2/code/keycloak"
+
+
+## Discover Server Route
+  cloud:
+    gateway:
+      routes:
+      - id: discovery-server
+        uri: http://eureka:eureka@${app.eureka-server}:8761
+        predicates:
+        - Path=/eureka/web
+        filters: SetPath=/
+
+      - id: rewrite
+        uri: http://${spring.application.name}:8080
+        predicates:
+          - Path=/lastn
+        filters:
+          - RewritePath=/lastn(?<remaining>.*), /eureka/web/lastn$\{remaining}
+          #- (?<segment>/?*), $\{segment}
+
+
+      - id: rewrites
+        uri: http://eureka:eureka@${app.eureka-server}:8761
+        predicates:
+          - Path=/eureka/web/lastn
+        filters: SetPath=/lastn
+
+
+  
+      ## Discover Server Static Resources Route
+      - id: discovery-server-static
+        uri: http://eureka:eureka@${app.eureka-server}:8761
+        predicates:
+        - Path=/eureka/**
+
+      ## IAM-SERVICE Route
+      - id: iam-server-docs
+        uri: lb://iam-service
+        predicates:
+          - Path=/iam-service/v3/api-docs
+        ## IAM-SERVICE Route
+
+      - id: iam-server-docs
+        uri: lb://iam-service
+        predicates:
+          - Path=/iam-service/v3/api-docs
+        #filters:
+        #  - SetPath=/v3/docs
+
+      ##
+      - id: iam-server
+        uri: lb://iam-service
+        predicates:
+          - Path=/api/iam-service/**
+        filters:
+         - RewritePath=/api/iam-service/(?<remaining>.*), /api/iam-service/$\{remaining}
+
+      - id: keycloak
+        uri: http://keycloak:9999
+        predicates:
+          - Path=/api/iam-service/**
+        filters:
+         - RewritePath=/api/iam-service/(?<remaining>.*), /api/iam-service/$\{remaining}
+
+    discovery:
+      enabled: true
+### Spring docs OpenIA
+#springdoc:
+#  swagger-ui:
+#   path=/swagger-ui.html
+springdoc:
+  enableNativeSupport: true
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+    config-url: /v3/api-docs/swagger-config
+    urls:
+      - url: /v3/api-docs
+        name: API Gateway Service
+        primaryName: API Gateway Service
+      - url: /iam-service/v3/api-docs
+        name: IAM Service
+        primaryName: iam-service
+
+openapi:
+  service:
+    title: ${spring.application.name} #title that you will want to display in the swagger ui
+    version: 1.0.0
+    url: http://localhost:${server.port} #api gateway url
+
+
+
+app:
+  eureka-server: discovery-server
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://eureka:eureka@${app.eureka-server}:8761/eureka
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+logging.level:
+  org.springframework.cloud.gateway: DEBUG
+  org.springframework.security: DEBUG
+  org.springframework.web.reactive.function.client: TRACE

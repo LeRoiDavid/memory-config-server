@@ -1,0 +1,27 @@
+server:
+  port: 8761
+
+
+spring:
+  application:
+    name: discovery-server
+#  cloud:
+#    config:
+#      import-check:
+#        enabled=false
+
+app:
+  eureka:
+    username: eureka
+    password: eureka
+
+eureka:
+  instance:
+    hostname: "${HOSTNAME}.eureka"
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serverUrl: ${EUREKA_SERVER_ADDRESS}
+
+  username: ${EUREKA_USERNAME:eureka}
+  password: ${EUREKA_PASSWORD:eureka}
