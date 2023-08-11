@@ -11,9 +11,6 @@ spring:
         jwt:
           issuer-uri: http://localhost:9999/realms/memory
 
-test:
-  value: hello
-
 ## Discover Server Route
   cloud:
     gateway:
