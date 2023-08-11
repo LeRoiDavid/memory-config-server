@@ -19,7 +19,7 @@ test:
     gateway:
       routes:
       - id: discovery-server
-        uri: http://eureka:eureka@${app.eureka-server}:8761
+        uri: http://eureka:eureka@discovery-server
         predicates:
         - Path=/eureka/web
         filters: SetPath=/
