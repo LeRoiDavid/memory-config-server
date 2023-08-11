@@ -16,13 +16,13 @@ spring:
     gateway:
       routes:
       - id: discovery-server
-        uri: http://eureka:eureka@discovery-server
+        uri: lb://@{app.eureka-server}
         predicates:
         - Path=/eureka/web
         filters: SetPath=/
 
       - id: rewrite
-        uri: http://${spring.application.name}:8080
+        uri: lb://@{app.eureka-server}
         predicates:
           - Path=/lastn
         filters:
@@ -31,7 +31,7 @@ spring:
 
 
       - id: rewrites
-        uri: http://eureka:eureka@${app.eureka-server}:8761
+        uri: lb://@{app.eureka-server}
         predicates:
           - Path=/eureka/web/lastn
         filters: SetPath=/lastn
@@ -40,7 +40,7 @@ spring:
   
       ## Discover Server Static Resources Route
       - id: discovery-server-static
-        uri: http://eureka:eureka@${app.eureka-server}:8761
+        uri: lb://@{app.eureka-server}
         predicates:
         - Path=/eureka/**
 
