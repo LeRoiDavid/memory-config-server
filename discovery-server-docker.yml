@@ -22,9 +22,9 @@ eureka:
   client:
     registerWithEureka: false
     fetchRegistry: false
-    serviceUrl:
+    #serviceUrl:
       #defaultZone: ${EUREKA_SERVER_ADDRESS}
-      defaultZone: http://eureka:eureka@${eureka.instance.hostname}:${server.port}/eureka/
+    #  defaultZone: http://eureka:eureka@${eureka.instance.hostname}:${server.port}/eureka/
   #server:
   #  enable-self-preservation: false
 
