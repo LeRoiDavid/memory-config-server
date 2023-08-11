@@ -4,7 +4,7 @@ server:
 
 spring:
   application:
-    name: discovery-server-0
+    name: discovery-server
 #  cloud:
 #    config:
 #      import-check:
@@ -18,7 +18,7 @@ app:
 eureka:
   instance:
     #preferIpAddress: true
-    hostname: "${spring.application.name}.eureka"
+    hostname: "${spring.application.name}"
   client:
     registerWithEureka: false
     fetchRegistry: false
