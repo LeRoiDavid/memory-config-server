@@ -16,7 +16,7 @@ spring:
         registration:
           oauth2-client-credentials:
               client-id: iam-service
-              client-secret: 1uivyZNKgI8sMmTPM1P6TdlJmBTm2MxW # RZrFZYGtE6pdZaPC7iVliazyv24yQZRP
+              client-secret: 8aepFPSUSy7RokT6xKFCUuORFct6NcdC # RZrFZYGtE6pdZaPC7iVliazyv24yQZRP
               scope: openid, roles, profile, email, offline_access
               authorization-grant-type: password
               provider: keycloak
