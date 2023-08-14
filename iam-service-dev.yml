@@ -8,6 +8,14 @@ spring:
     hibernate:
       ddl-auto: update
 
+
+  zipkin:
+    base-url: http://localhost:9411
+  sleuth:
+    sampler:
+      probability: "1.0"
+
+
   ###> Database Configurations <###
   security:
     oauth2:
@@ -17,7 +25,7 @@ spring:
           oauth2-client-credentials:
               client-id: iam-service
               client-secret: 8aepFPSUSy7RokT6xKFCUuORFct6NcdC # RZrFZYGtE6pdZaPC7iVliazyv24yQZRP
-              scope: openid, roles, profile, email, offline_access
+              scope: openid roles profile email offline_access
               authorization-grant-type: password
               provider: keycloak
 
