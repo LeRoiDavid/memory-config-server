@@ -10,6 +10,13 @@ spring:
 #      import-check:
 #        enabled=false
 
+
+zipkin:
+  base-url: http://zipkin:9411
+sleuth:
+  sampler:
+    probability: 1.0
+
 app:
   eureka:
     username: eureka
