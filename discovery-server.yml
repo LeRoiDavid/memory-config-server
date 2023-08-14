@@ -31,7 +31,8 @@ eureka:
     fetchRegistry: false
     #serverUrl: ${EUREKA_SERVER_ADDRESS}
     serverUrl:  
-      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+      # defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+      defaultZone: http://localhost:${server.port}/eureka/
 
   # username: ${EUREKA_USERNAME:eureka}
   # username: eureka
