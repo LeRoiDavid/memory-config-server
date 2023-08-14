@@ -1,15 +1,9 @@
 server:
   port: 8761
 
-
 spring:
   application:
     name: discovery-server
-#  cloud:
-#    config:
-#      import-check:
-#        enabled=false
-
 
 zipkin:
   base-url: http://localhost:9411
@@ -17,28 +11,20 @@ sleuth:
   sampler:
     probability: 1.0
 
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serverUrl: http://localhost:${server.port}/eureka/
+    # Autre configuration du client Eureka
+
+  instance:
+    hostname: "${spring.application.name}.eureka"
 
 app:
   eureka:
     username: eureka
     password: eureka
-
-eureka:
-  instance:
-    hostname: "${spring.application.name}.eureka"
-  client:
-    registerWithEureka: false
-    fetchRegistry: false
-    #serverUrl: ${EUREKA_SERVER_ADDRESS}
-    serverUrl:  
-      # defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
-      defaultZone: http://localhost:${server.port}/eureka/
-
-  # username: ${EUREKA_USERNAME:eureka}
-  # username: eureka
-  
-  # password: ${EUREKA_PASSWORD:eureka}
-  # password: eureka
 
 
 
