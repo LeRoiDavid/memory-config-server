@@ -11,6 +11,12 @@ spring:
   messages:
     basename: i18n/messages
 
+  zipkin:
+    base-url: http://zipkin:9411
+  sleuth:
+    sampler:
+      probability: "1.0"
+
 logging:
   file:
     path: spring-boot-elk.log
@@ -32,3 +38,6 @@ springdoc:
     path: /iam-service/v3/api-docs #these urls will used to load the swagger ui of this service by the api gateway
   swagger-ui:
     path: /iam-service/swagger-ui.html
+
+
+ 

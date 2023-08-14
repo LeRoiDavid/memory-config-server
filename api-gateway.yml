@@ -10,7 +10,11 @@ spring:
       resource-server:
         jwt:
           issuer-uri: http://localhost:9999/realms/memory
-
+  zipkin:
+    base-url: http://localhost:9411
+  sleuth:
+    sampler:
+      probability: "1.0"
 ## Discover Server Route
   cloud:
     gateway:
@@ -118,4 +122,6 @@ logging.level:
   org.springframework.web.reactive.function.client: TRACE
 
 
-test: "Hello 2 héhé "
+test: "Hello 2 héhé"
+
+
