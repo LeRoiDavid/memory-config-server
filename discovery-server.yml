@@ -38,3 +38,11 @@ eureka:
   
   # password: ${EUREKA_PASSWORD:eureka}
   # password: eureka
+
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

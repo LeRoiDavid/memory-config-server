@@ -37,3 +37,10 @@ eureka:
 
   username: ${EUREKA_USERNAME:${app.eureka.username}}
   password: ${EUREKA_PASSWORD:${app.eureka.password}}
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
