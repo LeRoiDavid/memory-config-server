@@ -25,6 +25,8 @@ eureka:
     serverUrl:  
       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
 
-  username: ${EUREKA_USERNAME:eureka}
+  # username: ${EUREKA_USERNAME:eureka}
+  # username: eureka
   
-  password: ${EUREKA_PASSWORD:eureka}
+  # password: ${EUREKA_PASSWORD:eureka}
+  # password: eureka
