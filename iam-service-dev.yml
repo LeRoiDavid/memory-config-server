@@ -82,8 +82,14 @@ logging.level:
 
 
 
-  zipkin:
-    base-url: http://localhost:9411
-  sleuth:
-    sampler:
-      probability: "1.0"
+openapi:
+  service:
+    title: iam-service #title that you will want to display in the swagger ui
+    version: 1.0.0
+    url: http://localhost:8080 #api gateway url
+
+springdoc:
+  api-docs:
+    path: /iam-service/v3/api-docs #these urls will used to load the swagger ui of this service by the api gateway
+  swagger-ui:
+    path: /iam-service/swagger-ui.html
