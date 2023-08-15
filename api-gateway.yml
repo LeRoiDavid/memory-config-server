@@ -79,6 +79,31 @@ spring:
         filters:
          - RewritePath=/api/iam-service/(?<remaining>.*), /api/iam-service/$\{remaining}
 
+    ## PRODUCT-SERVICE Route
+      - id: product-server-docs
+        uri: lb://product-service
+        predicates:
+          - Path=/product-service/v3/api-docs
+        ## product-SERVICE Route
+
+      - id: product-server-docs
+        uri: lb://product-service
+        predicates:
+          - Path=/product-service/v3/api-docs
+        #filters:
+        #  - SetPath=/v3/docs
+
+      ##
+      - id: product-server
+        uri: lb://product-service
+        predicates:
+          - Path=/api/product-service/**
+        filters:
+         - RewritePath=/api/product-service/(?<remaining>.*), /api/product-service/$\{remaining}
+
+
+
+
     discovery:
       enabled: true
 ### Spring docs OpenIA
@@ -97,9 +122,14 @@ springdoc:
       - url: /v3/api-docs
         name: API Gateway Service
         primaryName: API Gateway Service
+
       - url: /iam-service/v3/api-docs
         name: IAM Service
-        primaryName: iam-service
+        primaryName: iam-service      
+
+      - url: /product-service/v3/api-docs
+        name: Product Service
+        primaryName: product-service
 
 openapi:
   service:
