@@ -18,6 +18,15 @@ spring:
 ## Discover Server Route
   cloud:
     gateway:
+
+      default-filters:
+      - name: RequestRateLimiter
+        args:
+          redis-rate-limiter:
+            replenishRate: 10
+            burstCapacity: 20
+            requestedTokens: 1
+
       routes:
       - id: discovery-server
         uri: http://localhost:8761
