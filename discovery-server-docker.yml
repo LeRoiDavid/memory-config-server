@@ -13,6 +13,7 @@ spring:
 
 zipkin:
   base-url: ${ZIPKIN_URI:http://zipkin:9411}
+  serviceName: discovery-server
 sleuth:
   sampler:
     probability: 1.0
