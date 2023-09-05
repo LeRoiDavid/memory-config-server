@@ -54,8 +54,8 @@ eureka:
   password: ${EUREKA_PASSWORD:${app.eureka.password}}
 
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
+# management:
+#   endpoints:
+#     web:
+#       exposure:
+#         include: "*"
