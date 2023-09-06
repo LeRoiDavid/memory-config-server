@@ -114,7 +114,7 @@ iam:
   uri: http://iam-service:8081
 
 app:
-  eureka-server: discovery-server-0.eureka
+  eureka-server: discovery-server
 
 eureka:
   client:
