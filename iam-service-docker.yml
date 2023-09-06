@@ -6,8 +6,6 @@ server:
 spring:
   application:
     name: iam-service
-  profiles:
-    active: dev
   messages:
     basename: i18n/messages
 
