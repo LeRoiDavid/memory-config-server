@@ -9,15 +9,17 @@ spring:
     oauth2:
       resource-server:
         jwt:
-          issuer-uri: http://keycloak:9999/realms/memory
+          issuer-uri: "${KEYCLOAK_URI:http://keycloak:9999}/realms/memory"
   
   zipkin:
-    base-url: http://zipkin:9411
+    base-url: ${ZIPKIN_URI:http://zipkin:9411}
   sleuth:
     sampler:
       probability: 1.0
 
 
+
+ 
 ## Discover Server Route
   cloud:
     gateway:
@@ -97,7 +99,7 @@ openapi:
   service:
     title: ${spring.application.name} #title that you will want to display in the swagger ui
     version: 1.0.0
-    url: http://localhost:${server.port} #api gateway url
+    url: http://${spring.application.name}:${server.port} #api gateway url
 
 
 iam:
@@ -125,9 +127,3 @@ logging.level:
   org.springframework.cloud.gateway: DEBUG
   org.springframework.security: DEBUG
   org.springframework.web.reactive.function.client: TRACE
-
-
-
-
-test: "Hello 1"
-
