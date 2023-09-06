@@ -111,7 +111,7 @@ openapi:
 
 
 iam:
-  uri: http://iam-service:8081
+  uri: http://iam-service
 
 app:
   eureka-server: discovery-server

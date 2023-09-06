@@ -11,11 +11,70 @@ spring:
   messages:
     basename: i18n/messages
 
+  datasource:
+    url: "jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3309}/${MYSQL_DB:iam_db}"
+    username: ${MYSQL_USER:root}
+    password: ${MYSQL_PASSWORD:root}
+  # Actions for the schema when building the project
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+  # ZIPKIN
   zipkin:
-    base-url: http://zipkin:9411
+    base-url: ${ZIPKIN_URI:http://zipkin:9411}
   sleuth:
     sampler:
       probability: 1.0
+  
+
+
+  ###> Database Configurations <###
+  security:
+    oauth2:
+      client:
+        registration:
+          oauth2-client-credentials:
+              client-id: ${KEYCLOAK_CLIENT_ID:iam-service}
+              client-secret: ${KEYCLOAK_CLIENT_SECRET:8aepFPSUSy7RokT6xKFCUuORFct6NcdC} # RZrFZYGtE6pdZaPC7iVliazyv24yQZRP
+              scope: openid roles profile email offline_access
+              authorization-grant-type: password
+              provider: keycloak
+
+        provider:
+          keycloak:
+            issuer-uri: ${keycloak.auth-server-url}/realms/${keycloak.realm}
+            jwk-set-uri: ${keycloak.auth-server-url}/realms/${keycloak.realm}/protocol/openid-connect/certs
+            token-uri: ${keycloak.auth-server-url}/realms/${keycloak.realm}/protocol/openid-connect/token
+            user-info-uri: ${keycloak.auth-server-url}/realms/${keycloak.realm}/protocol/openid-connect/userinfo
+     # resource:
+     #   jwt:
+     #     key-value: -----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA4DpshuA/BtVsnq9AW8pT/LydVg3O1vrqyP08N0nOQDEBGz5SCo77fuAVtcm/GX4p9xLhqpSk05Gfrzq2+MknVdVAiN/vtW/tovUYSZRUsMjpltS3HHVCfuPL8jbkuGJLm7DJARZWpZl5mzmAAmO+io60RWA1a940vEFs0sBNOuWqHb4neHToqX+C5UyjBAa25Valkp8VKIg4huOYvpP+qGq7xXy2BdV+LnnBTmm97P20P2FPjjeUmOqS6+3PGeiMsfYljKCG12MIbHCl1qFm6lVvUbTiFtVK1JmnKXIabMJAzTnG+NZ3rL6FCsCQc9aCmQABex6yIVwicvDJmOkl3QIDAQAB\n-----END PUBLIC KEY-----
+      resource-server:
+        jwt:
+         # public-key-location:
+          issuer-uri: ${keycloak.auth-server-url}/realms/${keycloak.realm}
+          jwk-set-uri: ${keycloak.auth-server-url}/realms/${keycloak.realm}/protocol/openid-connect/certs
+
+  cloud:
+    discovery:
+      enabled: true
+
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+
+    service-url:
+      defaultZone: "http://${EUREKA_USERNAME}:${EUREKA_PASSWORD}@discovery-server:8761/eureka"
+
+
+keycloak:
+  auth-server-url: ${KEYCLOAK_URL:http://localhost:9999} # Keycloak server url
+  realm: ${KEYCLOAK_REALM:memory} # Keycloak Realm
+
+
 
 logging:
   file:
@@ -31,7 +90,7 @@ openapi:
   service:
     title: iam-service #title that you will want to display in the swagger ui
     version: 1.0.0
-    url: http://localhost:8080 #api gateway url
+    url: http://api-gateway #api gateway url
 
 springdoc:
   api-docs:
