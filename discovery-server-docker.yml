@@ -1,37 +1,21 @@
 server:
   port: 8761
 
-
 spring:
   application:
     name: discovery-server
-#  cloud:
-#    config:
-#      import-check:
-#        enabled=false
+  
+  zipkin:
+    base-url: http://zipkin:9411
+  sleuth:
+    sampler:
+      probability: 1.0
 
 management:
-  zipkin:
-    tracing:
-      endpoint: http://zipkin:9411/api/v2/spans
-  tracing:
-    sampling:
-      probability: 1.0
   endpoints:
     web:
       exposure:
-        include: "*"
-logging:
-  pattern:
-    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
-
-# zipkin:
-#   base-url: ${ZIPKIN_URI:http://zipkin:9411}
-#   serviceName: discovery-server
-sleuth:
-  sampler:
-    probability: 1.0
-
+        include: "*" 
 app:
   eureka:
     username: eureka
@@ -40,22 +24,10 @@ app:
 eureka:
   instance:
     #preferIpAddress: true
-    hostname: "${spring.application.name}"
+    hostname: "${spring.application.name}.eureka"
   client:
     registerWithEureka: false
-    fetchRegistry: false
-    #serviceUrl:
-      #defaultZone: ${EUREKA_SERVER_ADDRESS}
-    #  defaultZone: http://eureka:eureka@${eureka.instance.hostname}:${server.port}/eureka/
+    fetchRegistry: false 
+    defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
   #server:
   #  enable-self-preservation: false
-
-  username: ${EUREKA_USERNAME:${app.eureka.username}}
-  password: ${EUREKA_PASSWORD:${app.eureka.password}}
-
-
-# management:
-#   endpoints:
-#     web:
-#       exposure:
-#         include: "*"
