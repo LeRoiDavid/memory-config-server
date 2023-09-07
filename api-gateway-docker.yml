@@ -111,7 +111,7 @@ openapi:
 
 
 iam:
-  uri: http://iam-service
+  uri: lb://iam-service
 
 app:
   eureka-server: discovery-server
@@ -122,7 +122,7 @@ eureka:
     fetch-registry: true
 
     serviceUrl:
-      defaultZone: http://eureka:eureka@${app.eureka-server}:8761/eureka
+      defaultZone: http://${EUREKA_USERNAME:eureka}:${EUREKA_PASSWORD:eureka}@${EUREKA_HOST:discover-server}:8761/eureka
 #    enabled: false
 
 management:
