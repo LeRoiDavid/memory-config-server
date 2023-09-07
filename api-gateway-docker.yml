@@ -18,6 +18,9 @@ spring:
       probability: 1.0
 
 
+  redis:
+    host: ${REDIS_HOST:redis}
+    port: ${REDIS_HOST:6379} 
 
  
 ## Discover Server Route
@@ -33,7 +36,7 @@ spring:
 
       routes:
       - id: discovery-server
-        uri: http://eureka:eureka@${app.eureka-server}:8761
+        uri: lb://eureka:eureka@${app.eureka-server}
         predicates:
         - Path=/eureka/web
         filters: SetPath=/
