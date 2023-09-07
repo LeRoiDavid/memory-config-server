@@ -36,7 +36,7 @@ spring:
 
       routes:
       - id: discovery-server
-        uri: http://eureka:eureka@${EUREKA_HOST:discover-server}:8761
+        uri: ${discovery.url}
         predicates:
         - Path=/eureka/web
         filters: SetPath=/
@@ -51,14 +51,14 @@ spring:
 
 
       - id: rewrites
-        uri: http://eureka:eureka@${app.eureka-server}:8761
+        uri: ${discovery.url}
         predicates:
           - Path=/eureka/web/lastn
         filters: SetPath=/lastn
 
       ## Discover Server Static Resources Route
       - id: discovery-server-static
-        uri: http://eureka:eureka@${app.eureka-server}:8761
+        uri: ${discovery.url}
         predicates:
         - Path=/eureka/**
 
@@ -86,6 +86,8 @@ spring:
     discovery:
       enabled: true
 
+discovery:
+  url: http://${EUREKA_USERNAME:eureka}:${EUREKA_PASSWORD:eureka}@${EUREKA_HOST:discover-server}:8761
 ### Spring docs OpenIA
 #springdoc:
 #  swagger-ui:
