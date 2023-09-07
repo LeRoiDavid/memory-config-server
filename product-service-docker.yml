@@ -6,7 +6,7 @@ spring:
     name: product-service
   data:
     mongodb: 
-      uri: mongodb://mongo:27017/product-service
+      uri: mongodb://${MONGO_HOST:mongo}:27017/${MONGO_DB:product-service}
 
   zipkin:
     base-url: ${ZIPKIN_URI:http://zipkin:9411}
@@ -49,7 +49,7 @@ spring:
 
 keycloak:
   auth-server-url: ${KEYCLOAK_URL:http://localhost:9999} # Keycloak server url
-  realm: memory # Keycloak Realm
+  realm: ${KEYCLOAK_REALM:memory} # Keycloak Realm
 
 
 
