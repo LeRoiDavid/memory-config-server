@@ -36,7 +36,7 @@ spring:
 
       routes:
       - id: discovery-server
-        uri: lb://eureka:eureka@${app.eureka-server}
+        uri: http://eureka:eureka@${EUREKA_HOST:discover-server}
         predicates:
         - Path=/eureka/web
         filters: SetPath=/
