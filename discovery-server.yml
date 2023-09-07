@@ -18,8 +18,8 @@ management:
         include: "*" 
 app:
   eureka:
-    username: eureka
-    password: eureka
+    username: ${EUREKA_USERNAME:eureka}
+    password: ${EUREKA_PASSWORD:eureka}
 
 eureka:
   instance:

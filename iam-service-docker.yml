@@ -10,7 +10,7 @@ spring:
     basename: i18n/messages
 
   datasource:
-    url: "jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3309}/${MYSQL_DB:iam_db}"
+    url: "jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DB:iam_db}"
     username: ${MYSQL_USER:root}
     password: ${MYSQL_PASSWORD:root}
   # Actions for the schema when building the project
