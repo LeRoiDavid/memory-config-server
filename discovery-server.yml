@@ -23,7 +23,7 @@ app:
 
 eureka:
   instance:
-    #preferIpAddress: true
+    preferIpAddress: true
     hostname: "${spring.application.name}.eureka"
   client:
     registerWithEureka: false
