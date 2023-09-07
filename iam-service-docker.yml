@@ -65,7 +65,7 @@ eureka:
     fetch-registry: true
 
     service-url:
-      defaultZone: "http://${EUREKA_USERNAME}:${EUREKA_PASSWORD}@discovery-server:8761/eureka"
+      defaultZone: "http://${EUREKA_USERNAME}:${EUREKA_PASSWORD}@${EUREKA_HOST:discover-server}:8761/eureka"
 
 
 keycloak:
