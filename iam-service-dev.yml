@@ -1,3 +1,11 @@
+
+
+keycloak:
+  auth-server-url: ${KEYCLOAK_URL:http://localhost:9999} # Keycloak server url
+  realm: memory # Keycloak Realm
+
+
+
 spring:
   datasource:
     url: jdbc:mysql://localhost:3309/iam_db
@@ -14,6 +22,7 @@ spring:
   sleuth:
     sampler:
       probability: 1.0
+
 
 
   ###> Database Configurations <###
@@ -47,12 +56,6 @@ spring:
   cloud:
     discovery:
       enabled: true
-
-
-keycloak:
-  auth-server-url: ${KEYCLOAK_URL:http://localhost:9999} # Keycloak server url
-  realm: memory # Keycloak Realm
-
 
 
 ###> Eureka config <###
