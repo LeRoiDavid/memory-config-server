@@ -40,18 +40,18 @@ spring:
 
         provider:
           keycloak:
-            issuer-uri: ${keycloak.auth-server-url}/realms/${keycloak.realm}
-            jwk-set-uri: ${keycloak.auth-server-url}/realms/${keycloak.realm}/protocol/openid-connect/certs
-            token-uri: ${keycloak.auth-server-url}/realms/${keycloak.realm}/protocol/openid-connect/token
-            user-info-uri: ${keycloak.auth-server-url}/realms/${keycloak.realm}/protocol/openid-connect/userinfo
+            issuer-uri: http://localhost:9999/realms/memory
+            jwk-set-uri: http://localhost:9999/realms/memory/protocol/openid-connect/certs
+            token-uri: http://localhost:9999/realms/memory/protocol/openid-connect/token
+            user-info-uri: http://localhost:9999/realms/memory/protocol/openid-connect/userinfo
      # resource:
      #   jwt:
      #     key-value: -----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA4DpshuA/BtVsnq9AW8pT/LydVg3O1vrqyP08N0nOQDEBGz5SCo77fuAVtcm/GX4p9xLhqpSk05Gfrzq2+MknVdVAiN/vtW/tovUYSZRUsMjpltS3HHVCfuPL8jbkuGJLm7DJARZWpZl5mzmAAmO+io60RWA1a940vEFs0sBNOuWqHb4neHToqX+C5UyjBAa25Valkp8VKIg4huOYvpP+qGq7xXy2BdV+LnnBTmm97P20P2FPjjeUmOqS6+3PGeiMsfYljKCG12MIbHCl1qFm6lVvUbTiFtVK1JmnKXIabMJAzTnG+NZ3rL6FCsCQc9aCmQABex6yIVwicvDJmOkl3QIDAQAB\n-----END PUBLIC KEY-----
       resource-server:
         jwt:
          # public-key-location:
-          issuer-uri: ${keycloak.auth-server-url}/realms/${keycloak.realm}
-          jwk-set-uri: ${keycloak.auth-server-url}/realms/${keycloak.realm}/protocol/openid-connect/certs
+          issuer-uri: http://localhost:9999/realms/memory
+          jwk-set-uri: http://localhost:9999/realms/memory/protocol/openid-connect/certs
 
   cloud:
     discovery:
